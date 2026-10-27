@@ -1,4 +1,4 @@
-FROM opensuse/leap:15
+FROM opensuse/leap:16.0
 LABEL maintainer="Jeff Geerling"
 ENV container=docker
 
@@ -14,31 +14,24 @@ RUN zypper -n install systemd && zypper clean && \
     rm -f /lib/systemd/system/basic.target.wants/* && \
     rm -f /lib/systemd/system/anaconda.target.wants/*
 
-# Install base requirements and Python 3.11.
+# Install base requirements and Python 3.
 RUN zypper refresh && \
     zypper install -y \
       sudo \
       which \
       hostname \
       iproute2 \
-      python311 \
-      python311-pip \
-      python311-wheel \
-      python311-PyYAML && \
+      python3 \
+      python3-pip \
+      python3-wheel \
+      python3-PyYAML && \
     zypper clean -a
-
-# Ensure python3 points to Python 3.11.
-RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1 \
- && update-alternatives --install /usr/bin/pip3 pip3 /usr/bin/pip3.11 1
 
 # Upgrade pip, setuptools, and wheel.
 RUN pip3 install --no-cache-dir --upgrade pip setuptools wheel
 
 # Install Ansible via Pip (latest).
 RUN pip3 install --no-cache-dir $pip_packages
-
-# Disable requiretty in sudo.
-RUN sed -i -e 's/^\(Defaults\s*requiretty\)/#--- \1/' /etc/sudoers
 
 # Install a minimal Ansible inventory.
 RUN mkdir -p /etc/ansible

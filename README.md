@@ -1,15 +1,15 @@
-# OpenSUSE Leap 15 Ansible Test Image
+# OpenSUSE Leap 16 Ansible Test Image
 
-[![CI](https://github.com/geerlingguy/docker-opensuseleap15-ansible/workflows/Build/badge.svg?branch=master&event=push)](https://github.com/geerlingguy/docker-opensuseleap15-ansible/actions?query=workflow%3ABuild) [![Docker pulls](https://img.shields.io/docker/pulls/geerlingguy/docker-opensuseleap15-ansible)](https://hub.docker.com/r/geerlingguy/docker-opensuseleap15-ansible/)
+[![CI](https://github.com/geerlingguy/docker-opensuseleap16-ansible/workflows/Build/badge.svg?branch=master&event=push)](https://github.com/geerlingguy/docker-opensuseleap16-ansible/actions?query=workflow%3ABuild) [![Docker pulls](https://img.shields.io/docker/pulls/geerlingguy/docker-opensuseleap16-ansible)](https://hub.docker.com/r/geerlingguy/docker-opensuseleap16-ansible/)
 
-OpenSUSE Leap 15 Docker container for Ansible playbook and role testing.
+OpenSUSE Leap 16 Docker container for Ansible playbook and role testing.
 
 ## Tags
 
   - `latest`: Latest stable version of Ansible.
 
 The `latest` tag is a lightweight image for basic validation of Ansible playbooks.  
-Python 3.11 is installed to ensure compatibility with modern Ansible releases.
+Python 3.13 is the system Python of Leap 16.
 
 ## How to Build
 
@@ -17,13 +17,13 @@ This image is built on Docker Hub automatically any time the upstream OS contain
 
   1. [Install Docker](https://docs.docker.com/engine/installation/).
   2. `cd` into this directory.
-  3. Run `docker build -t opensuseleap15-ansible .`
+  3. Run `docker build -t opensuseleap16-ansible .`
 
 ## How to Use
 
   1. [Install Docker](https://docs.docker.com/engine/installation/).
-  2. Pull this image from Docker Hub: `docker pull geerlingguy/docker-opensuseleap15-ansible:latest` (or use the image you built earlier, e.g. `opensuseleap15-ansible:latest`).
-  3. Run a container from the image: `docker run --detach --privileged --cgroupns=host --volume=/sys/fs/cgroup:/sys/fs/cgroup:rw geerlingguy/docker-opensuseleap15-ansible:latest` (to test my Ansible roles, I add in a volume mounted from the current working directory with ``--volume=`pwd`:/etc/ansible/roles/role_under_test:ro``).
+  2. Pull this image from Docker Hub: `docker pull geerlingguy/docker-opensuseleap16-ansible:latest` (or use the image you built earlier, e.g. `opensuseleap16-ansible:latest`).
+  3. Run a container from the image: `docker run --detach --privileged --cgroupns=host --volume=/sys/fs/cgroup:/sys/fs/cgroup:rw geerlingguy/docker-opensuseleap16-ansible:latest` (to test my Ansible roles, I add in a volume mounted from the current working directory with ``--volume=`pwd`:/etc/ansible/roles/role_under_test:ro``).
   4. Use Ansible inside the container:
     a. `docker exec --tty [container_id] env TERM=xterm ansible --version`
     b. `docker exec --tty [container_id] env TERM=xterm ansible-playbook /path/to/ansible/playbook.yml --syntax-check`
@@ -37,4 +37,4 @@ I use Docker to test my Ansible roles and playbooks on multiple OSes using CI to
 ## Author
 
 Created in 2023 by [Jeff Geerling](https://www.jeffgeerling.com/), author of [Ansible for DevOps](https://www.ansiblefordevops.com/).
-Updated in 2025 to use Python 3.11 for modern Ansible compatibility.
+
